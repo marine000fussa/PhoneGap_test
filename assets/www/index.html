@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Hello, PhoneGap!</title>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    <!--
+    function preventBehavior(e) 
+    { 
+        e.preventDefault(); 
+    };
+    document.addEventListener("touchmove", preventBehavior, false);
+    
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady()
+    {
+        document.getElementById('myDevice').innerHTML = 'PhoneGap on ' + device.platform;
+        if ( -1 < device.platform.indexOf('iPhone') )
+        {
+            var link = document.createElement('link');
+            with( link )
+            {
+                rel = 'stylesheet';
+                media = 'only screen and (max-device-width: 480px)';
+                href = 'iphone.css';
+                type = 'text/css';
+            }
+            document.getElementsByTagName('head').item(0).appendChild(link);
+        }
+        document.getElementById('deviceDescribes').innerHTML = 
+            '<ul>' +
+            '<li>device.name = ' + device.name + '</li>' +
+            '<li>device.phonegap = ' + device.phonegap + '</li>' +
+            '<li>device.platform = ' + device.platform + '</li>' +
+            '<li>device.uuid = ' + device.uuid + '</li>' +
+            '<li>device.version = ' + device.version + '</li>' +
+            '</ul>';
+    }
+    -->
+    </script>
+  </head>
+  <body>
+      <h1>Hello, PhoneGap!</h1>
+      <h2 id="myDevice"></h2>
+      <p id="deviceDescribes">デバイスの情報を取得しています...</p>     
+  </body>
+</html>
