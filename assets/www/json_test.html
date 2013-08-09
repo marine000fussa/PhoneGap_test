@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
+	<!-- JSON-RPC jQueryプラグイン
+	-->
+	<script type="text/javascript" src="jquery.jsonrpc.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    <!--
+    function onBodyLoad() {       
+        document.addEventListener("deviceready",onDeviceReady,false);
+    }
+    function onDeviceReady() {
+    }
+
+    
+    /*
+     * 事前にWebアプリ(testコンテキスト)を起動しておいてください
+     */
+	$(function() {
+		// JSON呼び出し結果を処理するコールバック関数
+		function json_callback(data) {
+			$("#output").append("<li class='il-date'><strong>" + new Date() + "</strong></li>");
+			$(".il-date").css("color","blue");
+			for (var i in data) {
+				$("#output").append("<li>" + data[i].userId + ": " + data[i].name +  "</li>");
+			}
+		}
+
+		// JSON(RPC)呼び出し
+		$('#get-rpc-json').click(function() {
+			// JSON-RPC jQueryプラグイン を使用
+			$.jsonrpc(
+				{
+					//"url": "json/user.rpc-json",
+					// 「JSON-RPC jQueryプラグイン」を使った場合、JSONP(クロスドメイン制限解除)のやり方が分からない。jQuery.ajax()を使えばいい？
+					//"url": "http://localhost:8080/test/json/user.rpc-json",
+					//"url": "http://172.16.2.53:8080/test/json/user.rpc-json",
+					"url": "http://10.0.2.2:8080/test/json/user.rpc-json",
+					"contentType": "application/json",
+					"method": "find",
+					"params": {
+						'userId': $('#userId').val(),
+					},
+				},
+				{
+					success: function(data) {
+						json_callback(data);
+					},
+					fault : function(req) {
+						alert('なんかエラー');
+					}
+				}
+			);
+		});
+
+		// JSON(REST(URL))呼び出し
+		$('#get-rest-url-json').click(function() {
+			$.getJSON(
+				//第一引数：JSONのURL
+				//"json/user/" + $('#userId').val() + ".rest-url-json",
+				// クロスドメイン制限を解除する場合、最後に「callback=?」を付与してJSONPで問い合わせる。
+				//"http://localhost:8080/test/json/user/" + $('#userId').val() + ".rest-url-json?callback=?",
+				//"http://172.16.2.53:8080/test/json/user/" + $('#userId').val() + ".rest-url-json?callback=?",
+				//"http://172.16.2.53:8080/test/json/user/" + $('#userId').val() + ".rest-url-json",
+				"http://10.0.2.2:8080/test/json/user/" + $('#userId').val() + ".rest-url-json?callback=?",
+				//第三引数：コールバック関数
+				function(data, status) {
+					json_callback(data);
+				}
+			);
+		});
+
+		// JSON(REST(パラメータ))呼び出し
+		$('#get-rest-param-json').click(function() {
+			$.getJSON(
+				//第一引数：JSONのURL
+				//"json/user.rest-param-json",
+				// クロスドメイン制限を解除する場合、最後に「callback=?」を付与してJSONPで問い合わせる。
+				//"http://localhost:8080/test/json/user.rest-param-json?callback=?",
+				//"http://172.16.2.53:8080/test/json/user.rest-param-json?callback=?",
+				//"http://172.16.2.53:8080/test/json/user.rest-param-json",
+				"http://10.0.2.2:8080/test/json/user.rest-param-json",
+				//第二引数：RESTパラメータ
+				{
+					'userId': $('#userId').val(),
+				},
+				//第三引数：コールバック関数
+				function(data, status) {
+					json_callback(data);
+				}
+			);
+		});
+	});
+	// -->
+	</script>
+  </head>
+  <body onload="onBodyLoad()">
+
+
+<div>
+検索userId（0～2、0で全て）:
+<input type="text" id="userId" value="0" />
+</div>
+<br/>
+
+<input type="submit" id="get-rpc-json" value="JSON(RPC)で検索"  />
+<input type="submit" id="get-rest-url-json" value="JSON(REST URL)で検索"  />
+<input type="submit" id="get-rest-param-json" value="JSON(RESTパラメータ)で検索"  />
+
+<br/>
+
+<hr/>
+
+<div>検索結果:</div>
+<ul id="output"></ul>
+<br/>
+
+
+  </body>
+</html>
