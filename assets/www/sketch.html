@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="jquery.mobile-1.3.2.min.css" />
+    <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery.mobile-1.3.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="sketch.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script>
+    <!--
+    function onBodyLoad()
+    {       
+        document.addEventListener("deviceready",onDeviceReady,false);
+    }
+    
+    function onDeviceReady()
+    {
+	    $.each(['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#000', '#fff'], function() {
+		      $('#colors_demo .tools').append("<a href='#colors_sketch' data-color='" + this + "' style='width: 10px; background: " + this + ";'></a> ");
+		    });
+		    $.each([3, 5, 10, 15], function() {
+		      $('#colors_demo .tools').append("<a href='#colors_sketch' data-size='" + this + "' style='background: #ccc'>" + this + "</a> ");
+		    });
+		    $('#colors_sketch').sketch();
+    }
+    //-->
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+	<div data-role="page" id="top">
+        <div data-role="header" data-theme="b"> 
+			<h1>スケッチ</h1>
+		</div>
+
+		
+		<div data-role="content">
+		
+			<div class="tools">
+			  <a href="#colors_sketch" data-download="png" style="float: right; width: 100px;">Download</a>
+			</div>
+			<canvas id="colors_sketch" width="300" height="300" style="position:absolute;"></canvas><!--  position:abolute;をいれないと線が２重になる -->
+			<script>
+			  $(function() {
+				    $.each(['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#000', '#fff'], function() {
+				      $('#colors_demo .tools').append("<a href='#colors_sketch' data-color='" + this + "' style='width: 10px; background: " + this + ";'></a> ");
+				    });
+				    $.each([3, 5, 10, 15], function() {
+				      $('#colors_demo .tools').append("<a href='#colors_sketch' data-size='" + this + "' style='background: #ccc'>" + this + "</a> ");
+				    });
+				    $('#colors_sketch').sketch();
+				  });
+			</script>
+		</div>
+	</div>
+	<div data-role="footer">
+    </div>
+  </body>
+</html>
